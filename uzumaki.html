@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf8"?>
+<html>
+
+<body style="background-color: gray;">
+    <canvas id="canvas" width="1200" height="800"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const scale = 20;
+        const offset = 300;
+        const base = Math.PI * 2 / 4;
+        const time_interval = 20;
+
+        
+        test_1();
+        test_2();
+
+       
+        function test_1() {
+            let r = 1;
+            let theta = 0;
+
+            setInterval(archimedes_uzumaki, time_interval);
+
+            /**
+             * アルキメデスの渦巻き（等間隔・等速度）
+             */
+            function archimedes_uzumaki() {
+                const div = base / (r * 4);
+                theta += div;
+                r += 0.5 * div;
+
+                const x = (Math.cos(theta) * r * scale) + offset;
+                const y = (Math.sin(theta) * r * scale) + offset;
+
+                ctx.strokeStyle = "blue";
+                ctx.strokeRect(x, y, 4, 4);
+            }
+        }
+
+
+        function test_2() {
+            let r = 1;
+            let theta = 0;
+
+            setInterval(uzumaki, time_interval);
+
+            /**
+             * だんだん広がる渦巻き（等速度）
+             */
+            function uzumaki() {
+                theta += base / (r * 4);
+                r += 0.05;
+
+                const x = (Math.cos(theta) * r * scale) + offset;
+                const y = (Math.sin(theta) * r * scale) + offset;
+
+                ctx.strokeStyle = "red";
+                ctx.strokeRect(x, y, 4, 4);
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
